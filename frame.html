@@ -1,0 +1,25 @@
+<html>
+    <header>
+        <title>header</title>
+    </header>
+    <body style="margin: 0;">
+        <script>
+            const connectedFrames = {};
+
+            window.connectFrame = function(name, cb) {
+                connectedFrames[name] = cb;
+            }
+
+            window.sendAction = function(action) {
+                console.log(action);
+            }
+
+            setInterval(function() {
+                Object.keys(connectedFrames).forEach(function(name) {
+                    connectedFrames[name]();
+                });
+            }, 3000);
+        </script>
+        <iframe src="m.html" style="width: 100%; height: 100px; border: 0;"></iframe>
+    </body>
+</html>

@@ -9,7 +9,13 @@
                 return {
                     view: function(vnode) {
                         return m('main', items.map(function(item) {
-                            return m('button', item);
+                            return m('button', {
+                                onclick: function() {
+                                    window.parent.sendAction({
+                                        type: item
+                                    });
+                                }
+                            }, item);
                         }));
                     }
                 };
@@ -18,6 +24,11 @@
         <div id='menu'></div>
         <script>
             m.mount(document.querySelector('#menu'), Menu(['foo', 'bar']))
+        </script>
+        <script>
+            window.parent.connectFrame('main', function() {
+                console.log('mighty it is!');
+            });
         </script>
     </body>
 </html>
