@@ -1,0 +1,45 @@
+<html>
+    <header>
+        <title>____---__</title>
+        <script src="https://rawgit.com/x-tag/core/master/dist/x-tag-polyfilled.min.js"></script>
+        <script>
+            xtag.create('x-header', class extends XTagElement {
+                '::template(true)' (){
+                    return `<h2>${this.getAttribute('title')}</h2>`
+                }
+                set 'title::attr' (value){
+                    return value.toUpperCase();
+                }
+            });
+
+            xtag.create('x-footer', class extends XTagElement {
+                '::template(true)' (){
+                    return `<h3>footer</h3>`
+                }
+            });
+
+            xtag.create('x-page', class extends XTagElement {
+                '::template(true)' (){
+
+                    const content = Array.prototype.slice.call(this.children).filter(function(node) {
+                        return node.tagName != 'X-HEADER' && node.tagName != 'X-FOOTER';
+                    }).map(function(node) {
+                        return node.outerHTML;
+                    }).join('');
+
+                    return `
+                        <x-header title="my title"></x-header>
+                        ${content}
+                        <x-footer></x-footer>
+                    `;
+                }
+            });
+
+        </script>
+    </header>
+    <body>
+        <x-page>
+            <div>this is my content</div>
+        </x-page>
+    </body>
+</html>
