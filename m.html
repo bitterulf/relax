@@ -1,0 +1,23 @@
+<html>
+    <header>
+        <title>m</title>
+    </header>
+    <body>
+        <script src="//unpkg.com/mithril/mithril.js"></script>
+        <script>
+            const Menu = function(items) {
+                return {
+                    view: function(vnode) {
+                        return m('main', items.map(function(item) {
+                            return m('button', item);
+                        }));
+                    }
+                };
+            };
+        </script>
+        <div id='menu'></div>
+        <script>
+            m.mount(document.querySelector('#menu'), Menu(['foo', 'bar']))
+        </script>
+    </body>
+</html>
